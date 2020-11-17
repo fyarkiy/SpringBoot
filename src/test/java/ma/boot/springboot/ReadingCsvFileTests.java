@@ -13,13 +13,13 @@ public class ReadingCsvFileTests {
 
     @Test
     public void loadCorrectFile() throws Exception {
-        int result = ReadingCsvFile.readWithCsvBeanReader(CORRECT_CSV_FILE);
+        int result = ReadingCsvFile.readWithCsvBeanReader(CORRECT_CSV_FILE).size();
         Assert.assertEquals(3, result);
     }
 
     @Test
     public void loadEmptyFile() throws Exception {
-        int result = ReadingCsvFile.readWithCsvBeanReader(EMPTY_FILE);
+        int result = ReadingCsvFile.readWithCsvBeanReader(EMPTY_FILE).size();
         Assert.assertEquals(0, result);
     }
 
