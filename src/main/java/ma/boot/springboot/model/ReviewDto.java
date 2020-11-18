@@ -3,7 +3,7 @@ package ma.boot.springboot.model;
 import lombok.Data;
 
 @Data
-public class Review {
+public class ReviewDto {
     private Long id;
     private String productId;
     private String userId;

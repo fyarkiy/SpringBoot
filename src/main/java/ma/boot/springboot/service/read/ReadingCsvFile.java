@@ -3,8 +3,10 @@ package ma.boot.springboot.service.read;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import ma.boot.springboot.model.Review;
+import java.util.List;
+import ma.boot.springboot.model.ReviewDto;
 import org.apache.log4j.Logger;
 import org.supercsv.cellprocessor.CellProcessorAdaptor;
 import org.supercsv.cellprocessor.ParseInt;
@@ -19,25 +21,25 @@ import org.supercsv.util.CsvContext;
 
 public class ReadingCsvFile {
     private static final Logger logger = Logger.getLogger(ReadingCsvFile.class);
+    private static final String DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
 
-    public static int readWithCsvBeanReader(String fileName) throws IOException {
-        int records = 0;
-
+    public static List<ReviewDto> readWithCsvBeanReader(String fileName) throws IOException {
+        List<ReviewDto> reviews = new ArrayList<>();
         try (ICsvBeanReader beanReader = new CsvBeanReader(new FileReader(fileName),
                 CsvPreference.STANDARD_PREFERENCE)) {
             final String[] header = new String[]{"id", "productId", "userId", "profileName",
                     "numerator", "denominator", "score", "date", "summary", "text"};
             beanReader.getHeader(true);
             final CellProcessor[] processors = getProcessors();
-            Review review;
-            while ((review = beanReader.read(Review.class, header, processors)) != null) {
-                records++;
+            ReviewDto reviewDto;
+            while ((reviewDto = beanReader.read(ReviewDto.class, header, processors)) != null) {
+                reviews.add(reviewDto);
             }
         } catch (IOException | SuperCsvException e) {
-            logger.info("line # " + (records + 1) + " incorrect");
+            logger.info("line # " + reviews.size() + " incorrect");
             throw new RuntimeException("incorrect file", e);
         }
-        return records;
+        return reviews;
     }
 
     private static CellProcessor[] getProcessors() {
@@ -45,8 +47,8 @@ public class ReadingCsvFile {
             @Override
             public Object execute(Object o, CsvContext csvContext) {
                 Date date = new Date(Long.parseLong(o.toString()) * 1000L);
-                SimpleDateFormat jdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                return jdf.format(date);
+                SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+                return dateFormat.format(date);
             }
         };
         final CellProcessor[] processors = new CellProcessor[]{

@@ -10,16 +10,17 @@ public class ReadingCsvFileTests {
     private static final String NOT_EXISTED_FILE = "file123.csv";
     private static final String WRONG_DATA = "incorrect_data.csv";
     private static final String EMPTY_FILE = "empty_file.csv";
+    private static final int NUMBER_OF_RECORDS = 3;
 
     @Test
     public void loadCorrectFile() throws Exception {
-        int result = ReadingCsvFile.readWithCsvBeanReader(CORRECT_CSV_FILE);
-        Assert.assertEquals(3, result);
+        int result = ReadingCsvFile.readWithCsvBeanReader(CORRECT_CSV_FILE).size();
+        Assert.assertEquals(NUMBER_OF_RECORDS, result);
     }
 
     @Test
     public void loadEmptyFile() throws Exception {
-        int result = ReadingCsvFile.readWithCsvBeanReader(EMPTY_FILE);
+        int result = ReadingCsvFile.readWithCsvBeanReader(EMPTY_FILE).size();
         Assert.assertEquals(0, result);
     }
 
