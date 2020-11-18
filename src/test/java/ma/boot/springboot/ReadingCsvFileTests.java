@@ -13,7 +13,7 @@ public class ReadingCsvFileTests {
     private static final int NUMBER_OF_RECORDS = 3;
 
     @Test
-    public void loadCorrectFile() throws Exception {
+    public void countReadRecordsFromFile() throws Exception {
         int result = ReadingCsvFile.readWithCsvBeanReader(CORRECT_CSV_FILE).size();
         Assert.assertEquals(NUMBER_OF_RECORDS, result);
     }
