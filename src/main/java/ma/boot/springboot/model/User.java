@@ -16,12 +16,12 @@ import lombok.Data;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     private Long id;
-    @Column(unique = true)
-    private String userCustomedId;
+    @Column(unique = true, name = "user_id")
+    private String userId;
+    @Column(name = "profile_name")
     private String profileName;
     private String password;
     @ManyToMany
-    private Set<Role> rolesList;
+    private Set<Role> roles;
 }

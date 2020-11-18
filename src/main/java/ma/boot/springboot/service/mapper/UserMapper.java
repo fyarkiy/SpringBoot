@@ -13,8 +13,8 @@ public class UserMapper {
     public static User mapReviewDtoToUser(ReviewDto dto) {
         User user = new User();
         user.setProfileName(dto.getProfileName());
-        user.setUserCustomedId(dto.getUserId());
-        user.setRolesList(Set.of(new Role(RoleName.USER)));
+        user.setUserId(dto.getUserId());
+        user.setRoles(Set.of(new Role(RoleName.USER)));
         return user;
     }
 }

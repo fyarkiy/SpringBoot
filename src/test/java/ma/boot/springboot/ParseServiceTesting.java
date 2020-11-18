@@ -41,7 +41,7 @@ public class ParseServiceTesting {
             users.add(UserMapper.mapReviewDtoToUser(dto));
         }
         Assert.assertEquals(3, users.size());
-        Assert.assertEquals(SECOND_USER, users.get(1).getUserCustomedId());
+        Assert.assertEquals(SECOND_USER, users.get(1).getUserId());
     }
 
     @Test
