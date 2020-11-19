@@ -28,17 +28,20 @@ public class ParseServiceTesting {
                     + " them all to be of good quality.");
     private static final LocalDateTime DATE_FIRST_COMMENT =
             LocalDateTime.of(2011, 04, 27, 03, 00, 00);
+    private static UserMapper userMapper;
 
     @BeforeClass
     public static void init() throws IOException {
         reviewList = ReadingCsvFile.readWithCsvBeanReader(CORRECT_CSV_FILE);
+        userMapper = new UserMapper();
     }
 
     @Test
     public void parseUserOk() throws IOException {
+
         List<User> users = new ArrayList<>();
         for (ReviewDto dto : reviewList) {
-            users.add(UserMapper.mapReviewDtoToUser(dto));
+            users.add(userMapper.mapReviewDtoToUser(dto));
         }
         Assert.assertEquals(3, users.size());
         Assert.assertEquals(SECOND_USER, users.get(1).getUserId());
