@@ -6,11 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "reviews")
 public class Review {
@@ -19,12 +21,10 @@ public class Review {
     private Long id;
     @Column(name = "review_id")
     private Long reviewId;
-    @ManyToMany
-    @Column(name = "product_id")
-    private Long productId;
-    @ManyToMany
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne
+    private Product product;
+    @ManyToOne
+    private User user;
     private Integer numerator;
     private Integer denominator;
     private Integer score;
@@ -32,9 +32,6 @@ public class Review {
     private LocalDateTime localDate;
     private String summary;
     private String text;
-
-    public Review() {
-    }
 
     public Review(Long reviewId, Integer numerator, Integer denominator,
                   Integer score, String summary, String text) {
