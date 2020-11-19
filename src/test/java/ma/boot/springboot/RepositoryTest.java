@@ -6,7 +6,6 @@ import ma.boot.springboot.model.ReviewDto;
 import ma.boot.springboot.model.User;
 import ma.boot.springboot.repository.UserRepository;
 import ma.boot.springboot.service.UserService;
-import ma.boot.springboot.service.impl.UserServiceImpl;
 import ma.boot.springboot.service.mapper.UserMapper;
 import ma.boot.springboot.service.read.ReadingCsvFile;
 import org.junit.Assert;
@@ -27,13 +26,9 @@ public class RepositoryTest {
     @Autowired
     private JpaRepositoriesAutoConfiguration jpaRepositoriesAutoConfiguration;
 
-
     @BeforeClass
     public static void init() throws IOException {
-
         reviewList = ReadingCsvFile.readWithCsvBeanReader(CORRECT_CSV_FILE);
-//        userMapper = new UserMapper();
-//        userService = new UserServiceImpl(userRepository, userMapper);
     }
 
     @Test
