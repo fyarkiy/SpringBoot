@@ -13,7 +13,6 @@ public class UserMapper {
         user.setProfileName(dto.getProfileName());
         user.setUserId(dto.getUserId());
         user.setPassword(DEFAULT_PASSWORD);
-
         return user;
     }
 }
