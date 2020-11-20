@@ -12,7 +12,7 @@ public class ReviewMapper {
     private static final DateTimeFormatter DATE_TIME_FORMATTER
             = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss", Locale.ENGLISH);
 
-    public static Review mapReviewDtoToReview(ReviewDto dto) {
+    public Review mapReviewDtoToReview(ReviewDto dto) {
         Review review = new Review(dto.getId(), dto.getNumerator(),
                 dto.getDenominator(), dto.getScore(),
                 dto.getSummary(), dto.getText());
