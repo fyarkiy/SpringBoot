@@ -97,7 +97,7 @@ public class DatabaseSaver {
         List<Word> wordListToLoad = new ArrayList<>();
         Map<String, Long> wordMapFromDto = new HashMap<>();
         wordMapFromDto = dtos.stream()
-                .map(m -> m.getText())
+                .map(m -> m.getText().toLowerCase())
                 .flatMap(Pattern.compile(WORDS_SPLITERATOR)::splitAsStream)
                 .filter(w -> w.length() > MIN_WORD_LENGTH)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));

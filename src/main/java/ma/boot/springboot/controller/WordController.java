@@ -19,7 +19,8 @@ public class WordController {
     }
 
     @GetMapping("/top")
-    public List<WordResponseDto> findMostUsedWords(@RequestParam(defaultValue = QUANTITY) int quantity) {
+    public List<WordResponseDto> findMostUsedWords(@RequestParam(defaultValue = QUANTITY)
+                                                               int quantity) {
         return wordService.findMostUsedWords(quantity);
     }
 }

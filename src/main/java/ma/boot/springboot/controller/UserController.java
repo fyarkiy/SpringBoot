@@ -19,7 +19,8 @@ public class UserController {
     }
 
     @GetMapping("/top")
-    public List<UserResponseDto> findMostActiveUsers(@RequestParam(defaultValue = QUANTITY) int quantity) {
+    public List<UserResponseDto> findMostActiveUsers(@RequestParam(defaultValue = QUANTITY)
+                                                                 int quantity) {
         return userService.findMostActiveUsers(quantity);
     }
 }
