@@ -6,5 +6,5 @@ import ma.boot.springboot.model.dto.ProductRequestDto;
 import ma.boot.springboot.model.dto.ProductResponseDto;
 
 public interface ProductService extends GenericService<Product, ProductRequestDto> {
-    List<ProductResponseDto> getMostReviewedProducts(int quantity);
+    List<ProductResponseDto> findMostReviewedProducts(int quantity);
 }

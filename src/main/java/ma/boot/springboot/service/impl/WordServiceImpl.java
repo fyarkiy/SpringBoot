@@ -22,7 +22,7 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
-    public List<WordResponseDto> getTopWords(int quantity) {
-        return wordRepository.getTopWords(PageRequest.of(0, quantity));
+    public List<WordResponseDto> findMostUsedWords(int quantity) {
+        return wordRepository.findMostUsedWords(PageRequest.of(0, quantity));
     }
 }

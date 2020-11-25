@@ -21,6 +21,6 @@ public class ProductController {
     @GetMapping("/top")
     List<ProductResponseDto> getMostReviewedProducts(@RequestParam(defaultValue = QUANTITY)
                                                    int quantity) {
-        return productService.getMostReviewedProducts(quantity);
+        return productService.findMostReviewedProducts(quantity);
     }
 }

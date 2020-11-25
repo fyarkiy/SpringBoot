@@ -6,5 +6,5 @@ import ma.boot.springboot.model.dto.UserRequestDto;
 import ma.boot.springboot.model.dto.UserResponseDto;
 
 public interface UserService extends GenericService<User, UserRequestDto> {
-    List<UserResponseDto> getTopUsers(int quantity);
+    List<UserResponseDto> findMostActiveUsers(int quantity);
 }

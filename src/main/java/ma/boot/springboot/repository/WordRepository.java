@@ -14,5 +14,5 @@ public interface WordRepository extends JpaRepository<Word, Long> {
             + " Group by w.value"
             + " Order BY w.occurrence DESC, w.value ASC")
     //            + " ORDER BY COUNT(w.value) DESC, w.value ASC")
-    List<WordResponseDto> getTopWords(Pageable pageable);
+    List<WordResponseDto> findMostUsedWords(Pageable pageable);
 }
