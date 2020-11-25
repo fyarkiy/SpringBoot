@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class DataController {
-    private static final String UPLOAD_FILE = "new_shorter_file.csv";
+    private static final String UPLOAD_FILE = "new_short_file.csv";
     private final DatabaseSaver databaseSaver;
 
     public DataController(DatabaseSaver databaseSaver) {

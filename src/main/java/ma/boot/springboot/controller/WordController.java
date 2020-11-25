@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/words")
 public class WordController {
-    private static final String QUANTITY = "100";
+    private static final String QUANTITY = "1000";
     private final WordService wordService;
 
     public WordController(WordService wordService) {
