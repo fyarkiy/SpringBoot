@@ -3,7 +3,7 @@ package ma.boot.springboot.service.impl;
 import java.util.List;
 import java.util.Set;
 import ma.boot.springboot.model.Product;
-import ma.boot.springboot.model.ReviewDto;
+import ma.boot.springboot.model.dto.ProductRequestDto;
 import ma.boot.springboot.model.dto.ProductResponseDto;
 import ma.boot.springboot.repository.ProductRepository;
 import ma.boot.springboot.service.ProductService;
@@ -23,9 +23,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product add(ReviewDto dto) {
+    public Product add(ProductRequestDto dto) {
         return productRepository
-                .save(productMapper.mapReviewDtoToProduct(dto));
+                .save(productMapper.mapDtoToProduct(dto));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponseDto> getTopProducts(int quantity) {
+    public List<ProductResponseDto> getMostReviewedProducts(int quantity) {
         return productRepository.getTopProducts(PageRequest.of(0,quantity));
     }
 

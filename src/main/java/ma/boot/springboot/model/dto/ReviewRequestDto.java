@@ -1,9 +1,11 @@
-package ma.boot.springboot.model;
+package ma.boot.springboot.model.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class ReviewDto {
+@NoArgsConstructor
+public class ReviewRequestDto {
     private Long id;
     private String productId;
     private String userId;

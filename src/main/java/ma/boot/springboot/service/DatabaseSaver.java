@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Set;
 import ma.boot.springboot.model.Product;
 import ma.boot.springboot.model.Review;
-import ma.boot.springboot.model.ReviewDto;
 import ma.boot.springboot.model.Role;
 import ma.boot.springboot.model.RoleName;
 import ma.boot.springboot.model.User;
 import ma.boot.springboot.model.Word;
+import ma.boot.springboot.model.dto.ProductRequestDto;
+import ma.boot.springboot.model.dto.ReviewRequestDto;
+import ma.boot.springboot.model.dto.UserRequestDto;
 import ma.boot.springboot.service.mapper.ProductMapper;
 import ma.boot.springboot.service.mapper.ReviewMapper;
 import ma.boot.springboot.service.mapper.UserMapper;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Component;
 public class DatabaseSaver {
     private static final int MIN_WORD_LENGTH = 2;
     private static final String WORDS_SPLITERATOR = "[!._,'@? ]";
+    private static final String DEFAULT_PASSWORD = "1111";
     private final RoleService roleService;
     private final UserService userService;
     private final UserMapper userMapper;
@@ -43,13 +46,13 @@ public class DatabaseSaver {
         this.wordService = wordService;
     }
 
-    public int addingDataToStorage(List<ReviewDto> dtos) {
+    public int addDataToStorage(List<ReviewRequestDto> dtos) {
         List<Word> wordsLoaded = loadWordsToDb(dtos);
         List<Product> productsLoaded = loadProductsToDb(dtos);
         List<User> usersLoaded = loadUsersToDb(dtos);
 
         Set<Review> reviewList = new HashSet<>();
-        for (ReviewDto dto : dtos) {
+        for (ReviewRequestDto dto : dtos) {
             Review review = reviewMapper.mapReviewDtoToReview(dto);
             review.setUser(usersLoaded.stream()
                     .filter(u -> u.getProfileName().equals(dto.getProfileName()))
@@ -62,29 +65,32 @@ public class DatabaseSaver {
         return reviewService.addAll(reviewList).size();
     }
 
-    private List<User> loadUsersToDb(List<ReviewDto> dtos) {
+    private List<User> loadUsersToDb(List<ReviewRequestDto> dtos) {
         Set<User> userSetToLoad = new HashSet<>();
         Role userRole = roleService.getByName(RoleName.USER);
-        for (ReviewDto dto : dtos) {
-            User user = userMapper.mapReviewDtoToUser(dto);
+
+        for (ReviewRequestDto dto : dtos) {
+            User user = userMapper.mapDtoToUser(new UserRequestDto(dto.getUserId(),
+                    dto.getProfileName()));
             user.setRoles(Set.of(userRole));
+            user.setPassword(DEFAULT_PASSWORD);
             userSetToLoad.add(user);
         }
         return userService.addAll(userSetToLoad);
     }
 
-    private List<Product> loadProductsToDb(List<ReviewDto> dtos) {
+    private List<Product> loadProductsToDb(List<ReviewRequestDto> dtos) {
         Set<Product> productSetToLoad = new HashSet<>();
-        for (ReviewDto dto : dtos) {
-            Product product = productMapper.mapReviewDtoToProduct(dto);
-            productSetToLoad.add(product);
+        for (ReviewRequestDto dto : dtos) {
+            productSetToLoad.add(productMapper
+                    .mapDtoToProduct(new ProductRequestDto(dto.getProductId())));
         }
         return productService.addAll(productSetToLoad);
     }
 
-    private List<Word> loadWordsToDb(List<ReviewDto> dtos) {
+    private List<Word> loadWordsToDb(List<ReviewRequestDto> dtos) {
         List<Word> wordSetToLoad = new ArrayList<>();
-        for (ReviewDto dto : dtos) {
+        for (ReviewRequestDto dto : dtos) {
             for (String s : dto.getText().split(WORDS_SPLITERATOR)) {
                 if (s.length() >= MIN_WORD_LENGTH) {
                     wordSetToLoad.add(new Word(s.toLowerCase()));

@@ -2,8 +2,8 @@ package ma.boot.springboot.service.impl;
 
 import java.util.List;
 import java.util.Set;
-import ma.boot.springboot.model.ReviewDto;
 import ma.boot.springboot.model.User;
+import ma.boot.springboot.model.dto.UserRequestDto;
 import ma.boot.springboot.model.dto.UserResponseDto;
 import ma.boot.springboot.repository.RoleRepository;
 import ma.boot.springboot.repository.UserRepository;
@@ -26,8 +26,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User add(ReviewDto dto) {
-        return userRepository.save(userMapper.mapReviewDtoToUser(dto));
+    public User add(UserRequestDto dto) {
+        return userRepository.save(userMapper.mapDtoToUser(dto));
     }
 
     @Override

@@ -19,6 +19,13 @@ public class Product {
     @Column(unique = true, name = "product_id")
     private String productId;
 
+    public Product() {
+    }
+
+    public Product(String productId) {
+        this.productId = productId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

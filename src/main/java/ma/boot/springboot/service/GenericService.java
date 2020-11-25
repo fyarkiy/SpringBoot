@@ -2,10 +2,9 @@ package ma.boot.springboot.service;
 
 import java.util.List;
 import java.util.Set;
-import ma.boot.springboot.model.ReviewDto;
 
-public interface GenericService<T> {
-    T add(ReviewDto dto);
+public interface GenericService<T, U> {
+    T add(U dto);
 
     T get(Long id);
 

@@ -19,10 +19,10 @@ public class Word {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "the_word")
-    private String theWord;
+    private String value;
 
-    public Word(String theWord) {
-        this.theWord = theWord;
+    public Word(String value) {
+        this.value = value;
     }
 
     @Override
@@ -34,11 +34,11 @@ public class Word {
             return false;
         }
         Word word = (Word) o;
-        return getTheWord().equals(word.getTheWord());
+        return getValue().equals(word.getValue());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTheWord());
+        return Objects.hash(getValue());
     }
 }

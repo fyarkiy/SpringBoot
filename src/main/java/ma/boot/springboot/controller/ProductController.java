@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    private static final String QUANTITY = "1000";
+    private static final String QUANTITY = "100";
     private final ProductService productService;
 
     public ProductController(ProductService productService) {
@@ -19,8 +19,8 @@ public class ProductController {
     }
 
     @GetMapping("/top")
-    List<ProductResponseDto> getTopProducts(@RequestParam(defaultValue = QUANTITY)
+    List<ProductResponseDto> getMostReviewedProducts(@RequestParam(defaultValue = QUANTITY)
                                                    int quantity) {
-        return productService.getTopProducts(quantity);
+        return productService.getMostReviewedProducts(quantity);
     }
 }

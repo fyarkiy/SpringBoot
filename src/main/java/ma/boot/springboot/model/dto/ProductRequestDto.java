@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class WordResponseDto {
-    private String value;
+public class ProductRequestDto {
+    private String productId;
 }
