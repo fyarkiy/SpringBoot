@@ -2,6 +2,7 @@ package ma.boot.springboot.service.mapper;
 
 import ma.boot.springboot.model.ReviewDto;
 import ma.boot.springboot.model.User;
+import ma.boot.springboot.model.dto.UserResponseDto;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,5 +15,9 @@ public class UserMapper {
         user.setUserId(dto.getUserId());
         user.setPassword(DEFAULT_PASSWORD);
         return user;
+    }
+
+    public UserResponseDto mapUserToDto(User user) {
+        return new UserResponseDto(user.getProfileName());
     }
 }

@@ -1,12 +1,14 @@
 package ma.boot.springboot.service.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 import ma.boot.springboot.model.Product;
 import ma.boot.springboot.model.ReviewDto;
+import ma.boot.springboot.model.dto.ProductResponseDto;
 import ma.boot.springboot.repository.ProductRepository;
 import ma.boot.springboot.service.ProductService;
 import ma.boot.springboot.service.mapper.ProductMapper;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,15 +24,18 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product add(ReviewDto dto) {
-        return productRepository.save(productMapper.mapReviewDtoToProduct(dto));
+        return productRepository
+                .save(productMapper.mapReviewDtoToProduct(dto));
     }
 
     @Override
-    public List<Product> addAll(List<ReviewDto> dtoList) {
-        List<Product> products = dtoList.stream()
-                .map(productMapper::mapReviewDtoToProduct)
-                .collect(Collectors.toList());
+    public List<Product> addAll(Set<Product> products) {
         return productRepository.saveAll(products);
+    }
+
+    @Override
+    public List<ProductResponseDto> getTopProduct(int qty) {
+        return productRepository.getTopProduct(PageRequest.of(0,qty));
     }
 
     @Override

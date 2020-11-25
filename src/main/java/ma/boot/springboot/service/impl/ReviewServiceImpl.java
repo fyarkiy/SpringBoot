@@ -1,7 +1,7 @@
 package ma.boot.springboot.service.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 import ma.boot.springboot.model.Review;
 import ma.boot.springboot.model.ReviewDto;
 import ma.boot.springboot.repository.ReviewRepository;
@@ -25,10 +25,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<Review> addAll(List<ReviewDto> dtoList) {
-        List<Review> reviews = dtoList.stream()
-                .map(reviewMapper::mapReviewDtoToReview)
-                .collect(Collectors.toList());
+    public List<Review> addAll(Set<Review> reviews) {
         return reviewRepository.saveAll(reviews);
     }
 

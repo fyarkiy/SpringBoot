@@ -16,10 +16,8 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ParseServiceTesting {
+public class ParseServiceTest {
     private static final String CORRECT_CSV_FILE = "three_records.csv";
-    private static final String CSV_FILE_WITH_DUPLICATE = "duplicate.csv";
-    private static List<ReviewDto> reviewList;
     private static final String SECOND_USER = "A1D87F6ZCVE5NK";
     private static final String THIRD_PRODUCT = "B000LQOCH0";
     private static final Review FIRST_REVIEW = new Review(1L, 1,
@@ -28,6 +26,7 @@ public class ParseServiceTesting {
                     + " them all to be of good quality.");
     private static final LocalDateTime DATE_FIRST_COMMENT =
             LocalDateTime.of(2011, 04, 27, 03, 00, 00);
+    private static List<ReviewDto> reviewList;
     private static UserMapper userMapper;
     private static ProductMapper productMapper;
     private static ReviewMapper reviewMapper;

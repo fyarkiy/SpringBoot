@@ -1,5 +1,6 @@
 package ma.boot.springboot.model;
 
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,4 +25,21 @@ public class User {
     private String password;
     @ManyToMany
     private Set<Role> roles;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o.getClass().equals(User.class))) {
+            return false;
+        }
+        User user = (User) o;
+        return getUserId().equals(user.getUserId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUserId());
+    }
 }
