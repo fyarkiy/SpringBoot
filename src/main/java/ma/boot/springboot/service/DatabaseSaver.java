@@ -1,9 +1,14 @@
 package ma.boot.springboot.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import ma.boot.springboot.model.Product;
 import ma.boot.springboot.model.Review;
 import ma.boot.springboot.model.Role;
@@ -89,14 +94,19 @@ public class DatabaseSaver {
     }
 
     private List<Word> loadWordsToDb(List<ReviewRequestDto> dtos) {
-        List<Word> wordSetToLoad = new ArrayList<>();
-        for (ReviewRequestDto dto : dtos) {
-            for (String s : dto.getText().split(WORDS_SPLITERATOR)) {
-                if (s.length() >= MIN_WORD_LENGTH) {
-                    wordSetToLoad.add(new Word(s.toLowerCase()));
-                }
-            }
+        List<Word> wordListToLoad = new ArrayList<>();
+        Map<String, Long> wordMapFromDto = new HashMap<>();
+        wordMapFromDto = dtos.stream()
+                .map(m -> m.getText())
+                .flatMap(Pattern.compile(WORDS_SPLITERATOR)::splitAsStream)
+                .filter(w -> w.length() > MIN_WORD_LENGTH)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        for (Map.Entry<String, Long> entry : wordMapFromDto.entrySet()) {
+            Word word = new Word(entry.getKey(), entry.getValue());
+            word.setValue(entry.getKey());
+            word.setOccurrence(entry.getValue());
+            wordListToLoad.add(word);
         }
-        return wordService.addAll(wordSetToLoad);
+        return wordService.addAll(wordListToLoad);
     }
 }

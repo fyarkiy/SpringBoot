@@ -9,9 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface WordRepository extends JpaRepository<Word, Long> {
     @Query("SELECT "
-            + "new ma.boot.springboot.model.dto.WordResponseDto(w.value) "
+            + "new ma.boot.springboot.model.dto.WordResponseDto(w.value, w.occurrence) "
             + " from Word w "
             + " Group by w.value"
-            + " ORDER BY COUNT(w.value) DESC, w.value ASC")
+            + " Order BY w.occurrence DESC, w.value ASC")
+    //            + " ORDER BY COUNT(w.value) DESC, w.value ASC")
     List<WordResponseDto> getTopWords(Pageable pageable);
 }

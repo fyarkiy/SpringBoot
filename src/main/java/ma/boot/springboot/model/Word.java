@@ -20,9 +20,15 @@ public class Word {
     private Long id;
     @Column(name = "the_word")
     private String value;
+    private Long occurrence;
 
     public Word(String value) {
         this.value = value;
+    }
+
+    public Word(String value, Long occurrence) {
+        this.value = value;
+        this.occurrence = occurrence;
     }
 
     @Override
