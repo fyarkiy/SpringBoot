@@ -17,7 +17,7 @@ import ma.boot.springboot.service.mapper.UserMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AdderDataToDb {
+public class DatabaseSaver {
     private static final int MIN_WORD_LENGTH = 2;
     private static final String WORDS_SPLITERATOR = "[!._,'@? ]";
     private final RoleService roleService;
@@ -29,7 +29,7 @@ public class AdderDataToDb {
     private final ReviewService reviewService;
     private final WordService wordService;
 
-    public AdderDataToDb(RoleService roleService, UserService userService,
+    public DatabaseSaver(RoleService roleService, UserService userService,
                          UserMapper userMapper, ProductMapper productMapper,
                          ReviewMapper reviewMapper, ProductService productService,
                          ReviewService reviewService, WordService wordService) {

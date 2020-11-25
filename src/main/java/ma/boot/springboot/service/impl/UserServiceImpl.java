@@ -46,8 +46,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserResponseDto> getTopUsers(int qty) {
+    public List<UserResponseDto> getTopUsers(int quantity) {
 
-        return userRepository.findMostActiveUsers(PageRequest.of(0, qty));
+        return userRepository.findMostActiveUsers(PageRequest.of(0, quantity));
     }
 }

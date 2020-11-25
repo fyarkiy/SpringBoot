@@ -34,8 +34,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponseDto> getTopProduct(int qty) {
-        return productRepository.getTopProduct(PageRequest.of(0,qty));
+    public List<ProductResponseDto> getTopProducts(int quantity) {
+        return productRepository.getTopProducts(PageRequest.of(0,quantity));
     }
 
     @Override

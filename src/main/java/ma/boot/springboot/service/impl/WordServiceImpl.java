@@ -17,21 +17,6 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
-    public Word add(Word word) {
-        return wordRepository.save(word);
-    }
-
-    @Override
-    public Word get(Long id) {
-        return wordRepository.findById(id).get();
-    }
-
-    @Override
-    public List<Word> getAll() {
-        return wordRepository.findAll();
-    }
-
-    @Override
     public List<Word> addAll(List<Word> words) {
         return wordRepository.saveAll(words);
     }

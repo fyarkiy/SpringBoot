@@ -5,5 +5,5 @@ import ma.boot.springboot.model.Product;
 import ma.boot.springboot.model.dto.ProductResponseDto;
 
 public interface ProductService extends GenericService<Product> {
-    List<ProductResponseDto> getTopProduct(int qty);
+    List<ProductResponseDto> getTopProducts(int quantity);
 }

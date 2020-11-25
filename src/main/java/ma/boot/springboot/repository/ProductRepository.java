@@ -14,5 +14,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             + " from Review r, Product p "
             + "where r.product = p.id GROUP BY r.product "
             + "ORDER BY COUNT(r.product) DESC, p.productId ASC")
-    List<ProductResponseDto> getTopProduct(Pageable pageable);
+    List<ProductResponseDto> getTopProducts(Pageable pageable);
 }
