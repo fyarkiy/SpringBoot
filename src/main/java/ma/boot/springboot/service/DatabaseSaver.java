@@ -102,10 +102,7 @@ public class DatabaseSaver {
                 .filter(w -> w.length() > MIN_WORD_LENGTH)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         for (Map.Entry<String, Long> entry : wordMapFromDto.entrySet()) {
-            Word word = new Word(entry.getKey(), entry.getValue());
-            word.setValue(entry.getKey());
-            word.setOccurrence(entry.getValue());
-            wordListToLoad.add(word);
+            wordListToLoad.add(new Word(entry.getKey(), entry.getValue()));
         }
         return wordService.addAll(wordListToLoad);
     }

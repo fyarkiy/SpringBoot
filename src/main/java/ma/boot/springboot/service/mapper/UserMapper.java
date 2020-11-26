@@ -11,7 +11,6 @@ public class UserMapper {
         User user = new User();
         user.setProfileName(dto.getProfileName());
         user.setUserId(dto.getUserId());
-        user.setPassword(dto.getPassword());
         return user;
     }
 }

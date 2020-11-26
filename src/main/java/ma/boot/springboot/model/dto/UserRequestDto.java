@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 public class UserRequestDto {
     private String userId;
     private String profileName;
-    private String password;
 
     public UserRequestDto(String userId, String profileName) {
         this.userId = userId;
