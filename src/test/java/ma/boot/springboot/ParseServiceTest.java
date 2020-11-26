@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import ma.boot.springboot.model.Product;
 import ma.boot.springboot.model.Review;
-import ma.boot.springboot.model.ReviewDto;
 import ma.boot.springboot.model.User;
+import ma.boot.springboot.model.dto.ProductRequestDto;
+import ma.boot.springboot.model.dto.ReviewRequestDto;
+import ma.boot.springboot.model.dto.UserRequestDto;
 import ma.boot.springboot.service.mapper.ProductMapper;
 import ma.boot.springboot.service.mapper.ReviewMapper;
 import ma.boot.springboot.service.mapper.UserMapper;
@@ -16,10 +18,8 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ParseServiceTesting {
+public class ParseServiceTest {
     private static final String CORRECT_CSV_FILE = "three_records.csv";
-    private static final String CSV_FILE_WITH_DUPLICATE = "duplicate.csv";
-    private static List<ReviewDto> reviewList;
     private static final String SECOND_USER = "A1D87F6ZCVE5NK";
     private static final String THIRD_PRODUCT = "B000LQOCH0";
     private static final Review FIRST_REVIEW = new Review(1L, 1,
@@ -28,6 +28,7 @@ public class ParseServiceTesting {
                     + " them all to be of good quality.");
     private static final LocalDateTime DATE_FIRST_COMMENT =
             LocalDateTime.of(2011, 04, 27, 03, 00, 00);
+    private static List<ReviewRequestDto> reviewList;
     private static UserMapper userMapper;
     private static ProductMapper productMapper;
     private static ReviewMapper reviewMapper;
@@ -44,8 +45,9 @@ public class ParseServiceTesting {
     public void parseUserOk() throws IOException {
 
         List<User> users = new ArrayList<>();
-        for (ReviewDto dto : reviewList) {
-            users.add(userMapper.mapReviewDtoToUser(dto));
+        for (ReviewRequestDto dto : reviewList) {
+            users.add(userMapper.mapDtoToUser(new UserRequestDto(dto.getUserId(),
+                    dto.getProfileName())));
         }
         Assert.assertEquals(3, users.size());
         Assert.assertEquals(SECOND_USER, users.get(1).getUserId());
@@ -54,8 +56,8 @@ public class ParseServiceTesting {
     @Test
     public void parseProductOk() throws IOException {
         List<Product> products = new ArrayList<>();
-        for (ReviewDto dto : reviewList) {
-            products.add(productMapper.mapReviewDtoToProduct(dto));
+        for (ReviewRequestDto dto : reviewList) {
+            products.add(productMapper.mapDtoToProduct(new ProductRequestDto(dto.getProductId())));
         }
         Assert.assertEquals(3, products.size());
         Assert.assertEquals(THIRD_PRODUCT, products.get(2).getProductId());
@@ -64,7 +66,7 @@ public class ParseServiceTesting {
     @Test
     public void parseReviewOk() throws IOException {
         List<Review> reviews = new ArrayList<>();
-        for (ReviewDto dto : reviewList) {
+        for (ReviewRequestDto dto : reviewList) {
             reviews.add(reviewMapper.mapReviewDtoToReview(dto));
         }
         Assert.assertEquals(3, reviews.size());

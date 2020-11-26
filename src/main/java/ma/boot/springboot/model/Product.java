@@ -1,5 +1,6 @@
 package ma.boot.springboot.model;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,4 +18,28 @@ public class Product {
     private Long id;
     @Column(unique = true, name = "product_id")
     private String productId;
+
+    public Product() {
+    }
+
+    public Product(String productId) {
+        this.productId = productId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o.getClass().equals(Product.class))) {
+            return false;
+        }
+        Product product = (Product) o;
+        return getProductId().equals(product.getProductId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProductId());
+    }
 }

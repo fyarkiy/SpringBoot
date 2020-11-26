@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import ma.boot.springboot.model.ReviewDto;
+import ma.boot.springboot.model.dto.ReviewRequestDto;
 import org.apache.log4j.Logger;
 import org.supercsv.cellprocessor.CellProcessorAdaptor;
 import org.supercsv.cellprocessor.ParseInt;
@@ -23,17 +23,18 @@ public class ReadingCsvFile {
     private static final Logger logger = Logger.getLogger(ReadingCsvFile.class);
     private static final String DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
 
-    public static List<ReviewDto> readWithCsvBeanReader(String fileName) throws IOException {
-        List<ReviewDto> reviews = new ArrayList<>();
+    public static List<ReviewRequestDto> readWithCsvBeanReader(String fileName) throws IOException {
+        List<ReviewRequestDto> reviews = new ArrayList<>();
         try (ICsvBeanReader beanReader = new CsvBeanReader(new FileReader(fileName),
                 CsvPreference.STANDARD_PREFERENCE)) {
             final String[] header = new String[]{"id", "productId", "userId", "profileName",
                     "numerator", "denominator", "score", "date", "summary", "text"};
             beanReader.getHeader(true);
             final CellProcessor[] processors = getProcessors();
-            ReviewDto reviewDto;
-            while ((reviewDto = beanReader.read(ReviewDto.class, header, processors)) != null) {
-                reviews.add(reviewDto);
+            ReviewRequestDto reviewRequestDto;
+            while ((reviewRequestDto = beanReader
+                    .read(ReviewRequestDto.class, header, processors)) != null) {
+                reviews.add(reviewRequestDto);
             }
         } catch (IOException | SuperCsvException e) {
             logger.info("line # " + reviews.size() + " incorrect");

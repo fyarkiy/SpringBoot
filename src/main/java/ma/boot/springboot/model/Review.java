@@ -31,6 +31,7 @@ public class Review {
     @Column(name = "order_date")
     private LocalDateTime localDate;
     private String summary;
+    @Column(length = 15_000)
     private String text;
 
     public Review(Long reviewId, Integer numerator, Integer denominator,
