@@ -21,6 +21,7 @@ import ma.boot.springboot.model.dto.UserRequestDto;
 import ma.boot.springboot.service.mapper.ProductMapper;
 import ma.boot.springboot.service.mapper.ReviewMapper;
 import ma.boot.springboot.service.mapper.UserMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -36,11 +37,13 @@ public class DatabaseSaver {
     private final ProductService productService;
     private final ReviewService reviewService;
     private final WordService wordService;
+    private final PasswordEncoder encoder;
 
     public DatabaseSaver(RoleService roleService, UserService userService,
                          UserMapper userMapper, ProductMapper productMapper,
                          ReviewMapper reviewMapper, ProductService productService,
-                         ReviewService reviewService, WordService wordService) {
+                         ReviewService reviewService, WordService wordService,
+                         PasswordEncoder encoder) {
         this.roleService = roleService;
         this.userService = userService;
         this.userMapper = userMapper;
@@ -49,6 +52,7 @@ public class DatabaseSaver {
         this.productService = productService;
         this.reviewService = reviewService;
         this.wordService = wordService;
+        this.encoder = encoder;
     }
 
     public int addDataToStorage(List<ReviewRequestDto> dtos) {
@@ -78,7 +82,7 @@ public class DatabaseSaver {
             User user = userMapper.mapDtoToUser(new UserRequestDto(dto.getUserId(),
                     dto.getProfileName()));
             user.setRoles(Set.of(userRole));
-            user.setPassword(DEFAULT_PASSWORD);
+            user.setPassword(encoder.encode(DEFAULT_PASSWORD));
             userSetToLoad.add(user);
         }
         return userService.addAll(userSetToLoad);
